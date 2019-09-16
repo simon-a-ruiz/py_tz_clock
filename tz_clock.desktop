@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Timezone Clock
+Comment=A timezone clock written in Python with Tkinter
+Exec=python3 /path/to/py_clock/clock.py
+Path=/path/to/py_clock
+Icon=/path/to//py_clock/icon.png
+Terminal=false
+Type=Application
+Categories=Utility;Application;
