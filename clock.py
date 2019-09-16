@@ -68,7 +68,7 @@ root = Tk()
 #root.wm_attributes('-alpha',0.6)
 root.wm_minsize(width=500, height=1)
 root.title(string="Timezone Clock")
-root.configure(background="")
+root.configure(background="black")
 
 frame1 = Frame(root, width=200, height=100, background="black")
 frame2 = Frame(root,width=200,height=100,background='black')
