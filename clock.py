@@ -1,123 +1,120 @@
-from tkinter import *
+"""Python Timezone Clock with TKinter interface."""
+
+from tkinter import Tk, Frame, W, Label
 from datetime import datetime
-import time
 import pytz
 import yaml
 
 with open("config.yml", 'r') as ymlfile:
-    cfg = yaml.load(ymlfile, Loader=yaml.SafeLoader)
+    CFG = yaml.load(ymlfile, Loader=yaml.SafeLoader)
 
-global label_t
-global label_d
-global label_desc
-global frame
-global tz
-
-label_t = {}
-label_d = {}
-label_desc = {}
-frame = {}
-tz = {}
+LABEL_T = {}
+LABEL_D = {}
+LABEL_DESC = {}
+FRAME = {}
+TZ = {}
 
 
-def Draw():
+def draw():
+    """draw the default layout."""
     c_row = 0
-    for region in cfg['TimeZones']:
-        for city in cfg['TimeZones'][region]:
-            o_city = cfg['TimeZones'][region][city]
-            c_row+=1
-            frame[city] = {}
-            label_desc[city] = {}
+    for region in CFG['TimeZones']:
+        for city in CFG['TimeZones'][region]:
+            o_city = CFG['TimeZones'][region][city]
+            c_row += 1
+            FRAME[city] = {}
+            LABEL_DESC[city] = {}
 
             for i in range(0, 3):
-                frame[city][i] = Frame(root,
-                    width=cfg['defaults']['frame']['width'],
-                    height=cfg['defaults']['frame']['height'],
-                    background=cfg['defaults']['colors']['background'])
+                FRAME[city][i] = Frame(ROOT,
+                                       width=CFG['defaults']['frame']['width'],
+                                       height=CFG['defaults']['frame']['height'],
+                                       background=CFG['defaults']['colors']['background'])
 
-                frame[city][i].grid(
+                FRAME[city][i].grid(
                     row=c_row-1,
                     column=i,
-                    sticky = W)
+                    sticky=W)
 
-            label_desc[city] = Label(
-                frame[city][0],
+            LABEL_DESC[city] = Label(
+                FRAME[city][0],
                 text=o_city["description"],
-                background=cfg['defaults']['colors']['background'],
+                background=CFG['defaults']['colors']['background'],
                 fg=o_city['colors']['description'],
                 font=(
-                    cfg['defaults']['label']['font']['face'],
-                    cfg['defaults']['label']['font']['size'],
-                    cfg['defaults']['label']['font']['weight']),
-                padx=cfg['defaults']['label']['padding']['x'],
-                pady=cfg['defaults']['label']['padding']['y'],
-                justify=cfg['defaults']['label']['justify'])
+                    CFG['defaults']['label']['font']['face'],
+                    CFG['defaults']['label']['font']['size'],
+                    CFG['defaults']['label']['font']['weight']),
+                padx=CFG['defaults']['label']['padding']['x'],
+                pady=CFG['defaults']['label']['padding']['y'],
+                justify=CFG['defaults']['label']['justify'])
 
-            label_t[city] = Label(
-                frame[city][1],
+            LABEL_T[city] = Label(
+                FRAME[city][1],
                 text=o_city["description"],
-                background=cfg['defaults']['colors']['background'],
+                background=CFG['defaults']['colors']['background'],
                 fg=o_city['colors']['time'],
                 font=(
-                    cfg['defaults']['label']['font']['face'],
-                    cfg['defaults']['label']['font']['size'],
-                    cfg['defaults']['label']['font']['weight']),
-                padx=cfg['defaults']['label']['padding']['x'],
-                pady=cfg['defaults']['label']['padding']['y'],
-                justify=cfg['defaults']['label']['justify'])
+                    CFG['defaults']['label']['font']['face'],
+                    CFG['defaults']['label']['font']['size'],
+                    CFG['defaults']['label']['font']['weight']),
+                padx=CFG['defaults']['label']['padding']['x'],
+                pady=CFG['defaults']['label']['padding']['y'],
+                justify=CFG['defaults']['label']['justify'])
 
-            label_d[city] = Label(
-                frame[city][2],
+            LABEL_D[city] = Label(
+                FRAME[city][2],
                 text=o_city["description"],
-                background=cfg['defaults']['colors']['background'],
+                background=CFG['defaults']['colors']['background'],
                 fg=o_city['colors']['date'],
                 font=(
-                    cfg['defaults']['label']['font']['face'],
-                    cfg['defaults']['label']['font']['size'],
-                    cfg['defaults']['label']['font']['weight']),
-                padx=cfg['defaults']['label']['padding']['x'],
-                pady=cfg['defaults']['label']['padding']['y'],
-                justify=cfg['defaults']['label']['justify'])
+                    CFG['defaults']['label']['font']['face'],
+                    CFG['defaults']['label']['font']['size'],
+                    CFG['defaults']['label']['font']['weight']),
+                padx=CFG['defaults']['label']['padding']['x'],
+                pady=CFG['defaults']['label']['padding']['y'],
+                justify=CFG['defaults']['label']['justify'])
 
-            label_desc[city].pack()
-            label_t[city].pack()
-            label_d[city].pack()
+            LABEL_DESC[city].pack()
+            LABEL_T[city].pack()
+            LABEL_D[city].pack()
 
-def Refresher():
-    for region in cfg['TimeZones']:
-        for city in cfg['TimeZones'][region]:
-            o_city = cfg['TimeZones'][region][city]
-            tz[city] = pytz.timezone(o_city['tz'])
+def refresher():
+    """Refresh the layout every second with new time and date."""
+    for region in CFG['TimeZones']:
+        for city in CFG['TimeZones'][region]:
+            o_city = CFG['TimeZones'][region][city]
+            TZ[city] = pytz.timezone(o_city['tz'])
 
-            label_t[city].configure(
+            LABEL_T[city].configure(
                 text=datetime.now(
-                    tz[city]
+                    TZ[city]
                 ).strftime(
-                    cfg['defaults']['format']['time']
+                    CFG['defaults']['format']['time']
                 ),
                 fg=o_city['colors']['time'])
 
-            label_d[city].configure(
+            LABEL_D[city].configure(
                 text=datetime.now(
-                    tz[city]
+                    TZ[city]
                 ).strftime(
-                    cfg['defaults']['format']['date']
+                    CFG['defaults']['format']['date']
                 ),
                 fg=o_city['colors']['date'])
-    root.after(1000, Refresher)
+    ROOT.after(1000, refresher)
 
-root = Tk()
-#root.wm_attributes('-alpha',0.6)
-root.wm_minsize(
-    width=cfg['defaults']['window']['width'],
-    height=cfg['defaults']['window']['height'])
+ROOT = Tk()
+#ROOT.wm_attributes('-alpha',0.6)
+ROOT.wm_minsize(
+    width=CFG['defaults']['window']['width'],
+    height=CFG['defaults']['window']['height'])
 
-root.title(
-    string=cfg['appName'])
+ROOT.title(
+    string=CFG['appName'])
 
-root.configure(
-    background=cfg['defaults']['colors']['background'])
+ROOT.configure(
+    background=CFG['defaults']['colors']['background'])
 
-Draw()
-Refresher()
-root.mainloop()
+draw()
+refresher()
+ROOT.mainloop()
