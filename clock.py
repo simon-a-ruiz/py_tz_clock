@@ -35,32 +35,12 @@ def draw():
                     column=i,
                     sticky=W)
 
-            if 'description' in o_city:
-                desc = o_city["description"]
-            else:
-                desc = o_city["tz"]
+            desc = o_city.get('description', o_city['tz'])
 
-            city_colors = {}
-
+            city_colors = CFG['defaults']['colors'].copy()
             if 'colors' in o_city:
-                if 'description' in o_city['colors']:
-                    print(o_city['colors']['description'])
-                    city_colors['description'] = o_city['colors']['description']
-                else:
-                    print(CFG['defaults']['colors']['description'])
-                    city_colors['description'] = CFG['defaults']['colors']['description']
-
-                if 'time' in o_city['colors']:
-                    city_colors['time'] = o_city['colors']['time']
-                else:
-                    city_colors['time'] = CFG['defaults']['colors']['time']
-
-                if 'date' in o_city['colors']:
-                    city_colors['date'] = o_city['colors']['date']
-                else:
-                    city_colors['date'] = CFG['defaults']['colors']['date']
-            else:
-                city_colors = CFG['defaults']['colors']
+                for cell in o_city['colors']:
+                    city_colors[cell] = o_city['colors'][cell]
 
             LABEL_DESC[city] = Label(
                 FRAME[city][0],
