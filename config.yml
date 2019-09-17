@@ -30,17 +30,16 @@ TimeZones:
                 Los_Angeles:
                         description: "Los Angeles"
                         tz: "America/Los_Angeles"
-                        colors:
-                                description: white
-                                time: DeepSkyBlue2
-                                date: white
                 Indianapolis:
                         description: Indianapolis
                         tz: "America/Indiana/Indianapolis"
                         colors:
                                 description: yellow
-                                time: DeepSkyBlue2
-                                date: white
+                                time: yellow
+                                date: yellow
+                Halifax:
+                        description: Halifax
+                        tz: "America/Halifax"
         UTC:
                 UTC:
                         description: UTC
@@ -51,24 +50,11 @@ TimeZones:
                                 date: "orange red"
         Europe:
                 Dublin:
-                        description: "Dublin"
                         tz: "Europe/Dublin"
-                        colors:
-                                description: white
-                                time: DeepSkyBlue2
-                                date: white
                 London:
                         description: "London"
                         tz: "Europe/London"
-                        colors:
-                                description: white
-                                time: DeepSkyBlue2
-                                date: white
         Australia:
                 Sydney:
                         description: "Sydney"
                         tz: "Australia/Sydney"
-                        colors:
-                                description: white
-                                time: DeepSkyBlue2
-                                date: white
