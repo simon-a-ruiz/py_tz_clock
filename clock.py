@@ -35,71 +35,27 @@ def draw():
                     column=i,
                     sticky=W)
 
-            if 'description' in o_city:
-                desc = o_city["description"]
-            else:
-                desc = o_city["tz"]
+            desc = o_city.get('description', o_city['tz'])
 
-            city_colors = {}
-
+            city_colors = CFG['defaults']['colors'].copy()
             if 'colors' in o_city:
-                if 'description' in o_city['colors']:
-                    print(o_city['colors']['description'])
-                    city_colors['description'] = o_city['colors']['description']
-                else:
-                    print(CFG['defaults']['colors']['description'])
-                    city_colors['description'] = CFG['defaults']['colors']['description']
+                for cell in o_city['colors']:
+                    city_colors[cell] = o_city['colors'][cell]
 
-                if 'time' in o_city['colors']:
-                    city_colors['time'] = o_city['colors']['time']
-                else:
-                    city_colors['time'] = CFG['defaults']['colors']['time']
-
-                if 'date' in o_city['colors']:
-                    city_colors['date'] = o_city['colors']['date']
-                else:
-                    city_colors['date'] = CFG['defaults']['colors']['date']
-            else:
-                city_colors = CFG['defaults']['colors']
-
-            LABEL_DESC[city] = Label(
-                FRAME[city][0],
-                text=desc,
-                background=CFG['defaults']['colors']['background'],
-                fg=city_colors['description'],
-                font=(
-                    CFG['defaults']['label']['font']['face'],
+            bg = CFG['defaults']['colors']['background']
+            font = (CFG['defaults']['label']['font']['face'],
                     CFG['defaults']['label']['font']['size'],
-                    CFG['defaults']['label']['font']['weight']),
-                padx=CFG['defaults']['label']['padding']['x'],
-                pady=CFG['defaults']['label']['padding']['y'],
-                justify=CFG['defaults']['label']['justify'])
+                    CFG['defaults']['label']['font']['weight'])
+            padx = CFG['defaults']['label']['padding']['x']
+            pady = CFG['defaults']['label']['padding']['y']
+            justify = CFG['defaults']['label']['justify']
 
-            LABEL_T[city] = Label(
-                FRAME[city][1],
-                text=desc,
-                background=CFG['defaults']['colors']['background'],
-                fg=city_colors['time'],
-                font=(
-                    CFG['defaults']['label']['font']['face'],
-                    CFG['defaults']['label']['font']['size'],
-                    CFG['defaults']['label']['font']['weight']),
-                padx=CFG['defaults']['label']['padding']['x'],
-                pady=CFG['defaults']['label']['padding']['y'],
-                justify=CFG['defaults']['label']['justify'])
-
-            LABEL_D[city] = Label(
-                FRAME[city][2],
-                text=desc,
-                background=CFG['defaults']['colors']['background'],
-                fg=city_colors['date'],
-                font=(
-                    CFG['defaults']['label']['font']['face'],
-                    CFG['defaults']['label']['font']['size'],
-                    CFG['defaults']['label']['font']['weight']),
-                padx=CFG['defaults']['label']['padding']['x'],
-                pady=CFG['defaults']['label']['padding']['y'],
-                justify=CFG['defaults']['label']['justify'])
+            LABEL_DESC[city] = Label(FRAME[city][0], text=desc, background=bg, fg=city_colors['description'],
+                                     font=font, padx=padx, pady=pady, justify=justify)
+            LABEL_T[city] = Label(FRAME[city][1], text=desc, background=bg, fg=city_colors['time'],
+                                     font=font, padx=padx, pady=pady, justify=justify)
+            LABEL_D[city] = Label(FRAME[city][2], text=desc, background=bg, fg=city_colors['date'],
+                                     font=font, padx=padx, pady=pady, justify=justify)
 
             LABEL_DESC[city].pack()
             LABEL_T[city].pack()
