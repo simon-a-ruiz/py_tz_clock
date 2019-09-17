@@ -40,33 +40,33 @@ def draw():
             else:
                 desc = o_city["tz"]
 
-            COLORS = {}
+            city_colors = {}
 
             if 'colors' in o_city:
                 if 'description' in o_city['colors']:
                     print(o_city['colors']['description'])
-                    COLORS['description'] = o_city['colors']['description']
+                    city_colors['description'] = o_city['colors']['description']
                 else:
                     print(CFG['defaults']['colors']['description'])
-                    COLORS['description'] = CFG['defaults']['colors']['description']
+                    city_colors['description'] = CFG['defaults']['colors']['description']
 
                 if 'time' in o_city['colors']:
-                    COLORS['time'] = o_city['colors']['time']
+                    city_colors['time'] = o_city['colors']['time']
                 else:
-                    COLORS['time'] = CFG['defaults']['colors']['time']
+                    city_colors['time'] = CFG['defaults']['colors']['time']
 
                 if 'date' in o_city['colors']:
-                    COLORS['date'] = o_city['colors']['date']
+                    city_colors['date'] = o_city['colors']['date']
                 else:
-                    COLORS['date'] = CFG['defaults']['colors']['date']
+                    city_colors['date'] = CFG['defaults']['colors']['date']
             else:
-                COLORS = CFG['defaults']['colors']
+                city_colors = CFG['defaults']['colors']
 
             LABEL_DESC[city] = Label(
                 FRAME[city][0],
                 text=desc,
                 background=CFG['defaults']['colors']['background'],
-                fg=COLORS['description'],
+                fg=city_colors['description'],
                 font=(
                     CFG['defaults']['label']['font']['face'],
                     CFG['defaults']['label']['font']['size'],
@@ -79,7 +79,7 @@ def draw():
                 FRAME[city][1],
                 text=desc,
                 background=CFG['defaults']['colors']['background'],
-                fg=COLORS['time'],
+                fg=city_colors['time'],
                 font=(
                     CFG['defaults']['label']['font']['face'],
                     CFG['defaults']['label']['font']['size'],
@@ -92,7 +92,7 @@ def draw():
                 FRAME[city][2],
                 text=desc,
                 background=CFG['defaults']['colors']['background'],
-                fg=COLORS['date'],
+                fg=city_colors['date'],
                 font=(
                     CFG['defaults']['label']['font']['face'],
                     CFG['defaults']['label']['font']['size'],
@@ -118,12 +118,12 @@ def refresher():
             LABEL_T[city].configure(
                 text=datetime.now(
                     TZ[city]).strftime(
-                    CFG['defaults']['format']['time']))
+                        CFG['defaults']['format']['time']))
 
             LABEL_D[city].configure(
                 text=datetime.now(
                     TZ[city]).strftime(
-                    CFG['defaults']['format']['date']))
+                        CFG['defaults']['format']['date']))
 
     ROOT.after(1000, refresher)
 
