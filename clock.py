@@ -42,44 +42,20 @@ def draw():
                 for cell in o_city['colors']:
                     city_colors[cell] = o_city['colors'][cell]
 
-            LABEL_DESC[city] = Label(
-                FRAME[city][0],
-                text=desc,
-                background=CFG['defaults']['colors']['background'],
-                fg=city_colors['description'],
-                font=(
-                    CFG['defaults']['label']['font']['face'],
+            bg = CFG['defaults']['colors']['background']
+            font = (CFG['defaults']['label']['font']['face'],
                     CFG['defaults']['label']['font']['size'],
-                    CFG['defaults']['label']['font']['weight']),
-                padx=CFG['defaults']['label']['padding']['x'],
-                pady=CFG['defaults']['label']['padding']['y'],
-                justify=CFG['defaults']['label']['justify'])
+                    CFG['defaults']['label']['font']['weight'])
+            padx = CFG['defaults']['label']['padding']['x']
+            pady = CFG['defaults']['label']['padding']['y']
+            justify = CFG['defaults']['label']['justify']
 
-            LABEL_T[city] = Label(
-                FRAME[city][1],
-                text=desc,
-                background=CFG['defaults']['colors']['background'],
-                fg=city_colors['time'],
-                font=(
-                    CFG['defaults']['label']['font']['face'],
-                    CFG['defaults']['label']['font']['size'],
-                    CFG['defaults']['label']['font']['weight']),
-                padx=CFG['defaults']['label']['padding']['x'],
-                pady=CFG['defaults']['label']['padding']['y'],
-                justify=CFG['defaults']['label']['justify'])
-
-            LABEL_D[city] = Label(
-                FRAME[city][2],
-                text=desc,
-                background=CFG['defaults']['colors']['background'],
-                fg=city_colors['date'],
-                font=(
-                    CFG['defaults']['label']['font']['face'],
-                    CFG['defaults']['label']['font']['size'],
-                    CFG['defaults']['label']['font']['weight']),
-                padx=CFG['defaults']['label']['padding']['x'],
-                pady=CFG['defaults']['label']['padding']['y'],
-                justify=CFG['defaults']['label']['justify'])
+            LABEL_DESC[city] = Label(FRAME[city][0], text=desc, background=bg, fg=city_colors['description'],
+                                     font=font, padx=padx, pady=pady, justify=justify)
+            LABEL_T[city] = Label(FRAME[city][1], text=desc, background=bg, fg=city_colors['time'],
+                                     font=font, padx=padx, pady=pady, justify=justify)
+            LABEL_D[city] = Label(FRAME[city][2], text=desc, background=bg, fg=city_colors['date'],
+                                     font=font, padx=padx, pady=pady, justify=justify)
 
             LABEL_DESC[city].pack()
             LABEL_T[city].pack()
